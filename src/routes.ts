@@ -11,14 +11,24 @@ function routesConfig($stateProvider: angular.ui.IStateProvider, $urlRouterProvi
   $stateProvider
     .state('root', {
       url: '/',
-      component: 'root'
+      // component: 'root'
+      views: {
+        '@': {template: require('./app/root.html')},
+        'nav@root': {template: require('./app/tpl/nav.html')},
+        'left@root': {template: require('./app/tpl/left.html')},
+        'right@root': {template: require('./app/tpl/right.html')},
+      }
     })
-    // .state('list', {
-    //   url: '/list',
-    //   component: 'countryList'
-    // })
-    .state('details', {
-      url: '/details/:alpha3Code',
+    .state('root.list', {
+      url: 'list',
+      views: {
+        'lll@root': {
+          component: 'countryList'
+        }
+      }
+    })
+    .state('root.details', {
+      url: 'details/:alpha3Code',
       component: 'countryDetails',
       resolve: {
         countryDetailsData: function (countryService: CountryService, $transition$) {

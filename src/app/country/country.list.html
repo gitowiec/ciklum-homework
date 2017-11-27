@@ -7,7 +7,7 @@
   </thead>
   <tbody>
   <tr ng-repeat="(key, countryItem) in list.countryList">
-    <td><a class="" ui-sref="details({alpha3Code:countryItem.alpha3Code})">{{countryItem.name}}</a></td>
+    <td><a class="" ui-sref="root.details({alpha3Code:countryItem.alpha3Code})">{{countryItem.name}}</a></td>
     <td>{{countryItem.capital}}</td>
     <td>{{countryItem.region}}</td>
   </tr>
