@@ -1,6 +1,9 @@
 import {CountryListController} from './country.list.controller';
 export const countryListComponent: angular.IComponentOptions = {
-  template: require('./country.list.html'),
+  bindings: {
+    countryListData: '<'
+  },
   controller: CountryListController,
-  controllerAs: 'list'
+  controllerAs: 'list',
+  template: require('./country.list.html')
 };

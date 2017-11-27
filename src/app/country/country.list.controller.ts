@@ -2,15 +2,11 @@ import ICountryData from './country.details.d';
 
 
 // const data = require('./list.data.json');
-import * as data from './list.data.json';
-
-// interface ICountryList {
-//   countryList: Array<ICountryData>;
-// }
+// import * as data from './list.data.json';
 
 export class CountryListController implements angular.IController {
 
-  protected countryList: Array<ICountryData>;
+  protected countryListData: Array<ICountryData>;
 
   // private $scope: angular.IScope;
   /** @ngInject */
@@ -18,6 +14,6 @@ export class CountryListController implements angular.IController {
   }
 
   $onInit(): void {
-    this.countryList = <any>data;
+    // this.countryListData = <any>data;
   }
 }

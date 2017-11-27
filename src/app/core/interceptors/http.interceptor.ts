@@ -1,8 +1,3 @@
-// Imports
-import IHttpService = angular.IHttpService;
-import IQService = angular.IQService;
-import IPromise = angular.IPromise;
-import ITimeoutService = angular.ITimeoutService;
 import ICountriesRootScope from '../scope/rootscope.interface';
 
 
@@ -17,13 +12,13 @@ export class HttpInterceptor implements angular.IHttpInterceptor {
 
   }
 
-  public request(config): angular.IPromise<any> {
+  public request = (config): angular.IPromise<any> => {
 
     // enable CORS
     if (!angular.isDefined(config.withCredentials)) {
       // config.withCredentials = true;
     }
-
+    // console.log('interceptor ', this);
     // authorize
     config.headers['X-Mashape-Key'] = 'gjUYmtj9q2mshXhhuTb4QaQwd91Jp1KnLKajsnHCbEUkimeSw8';
 

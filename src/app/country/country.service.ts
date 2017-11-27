@@ -13,7 +13,7 @@ export class CountryService extends ConnectorService {
     return this.get('all');
   }
 
-  getCountryByCode(code: string) {
+  getCountryByCode(code: string): angular.IHttpPromise<any> {
     return this.get('alpha/' + code);
   }
 }

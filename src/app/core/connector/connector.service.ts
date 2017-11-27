@@ -1,70 +1,70 @@
 export class ConnectorService {
 
-
   protected apiUrl: string;
-
-  /** @ngInject */
-  constructor(private $http: angular.IHttpService,
-              private $q: angular.IQService,
-              private $timeout: angular.ITimeoutService) {
-
-  }
-
-
-  /**
-   * HTTP request
-   *
-   * @param url user defined URL
-   * @param method method name like GET/POST/PUT/DELETE/PATH/HEAD
-   * @param data payload to pass
-   * @param options query options
-   * @returns {IHttpPromise<T>}
-   */
-  request(url: string, method: string, data?: any, options?: any) {
-    options = options || {};
-    angular.extend(options, {
-      method: method,
-      url: url
-    });
-    if (data) {
-      options.data = data;
-    }
-    return this.$http(options);
-  };
-
-
-  /**
-   * GET method
-   *
-   * @param endpoint API endpoint name
-   * @param data payload to pass
-   * @param options query options
-   * @returns {IHttpPromise<T>}
-   */
-  get(endpoint: string = '', data?: any, options?: any) {
-    let url = options && options.external ?
-      endpoint :
-      this.apiUrl + endpoint;
-    options = options || {};
-    if (data) {
-      options.params = data;
-    }
-    return this.$http.get(url, options)
-      .then((response: any) => {
-        return options.autoParse ?
-          this.parseResponse(response) :
-          response;
-      });
-  };
 
   /**
    * Parse API response
    * @param response
    * @returns {Array}
    */
-  parseResponse(response: any): any {
+  static parseResponse(response: any): any {
     return response.data.result || [];
   }
+
+  static transformRequest(obj: any) {
+    let str = [];
+    for (let p in obj) {
+      if (obj.hasOwnProperty(p)) {
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+      }
+    }
+    return str.join("&");
+  }
+
+  /** @ngInject */
+  constructor(protected $http: angular.IHttpService,
+              protected $q: angular.IQService,
+              protected $timeout: angular.ITimeoutService) {
+
+  }
+
+  /**
+   * GET method
+   *
+   * @param endpoint API endpoint name
+   * @param data payload
+   * @param config query options
+   * @returns {IHttpPromise<T>}
+   */
+  get(endpoint: string = '', data: any = {}, config: any = {}): angular.IHttpPromise<any> {
+    let url = this.apiUrl + endpoint;
+    config.params = data;
+    return this.$http.get(url, config)
+      .then((response: any) => {
+        return config.autoParse ?
+          ConnectorService.parseResponse(response) :
+          response;
+      });
+  };
+
+  /**
+   * POST method
+   *
+   * @param endpoint API endpoint name
+   * @param data payload to pass
+   * @param config query options
+   * @returns {IHttpPromise<T>}
+   */
+  post(endpoint: string = '', data: any = {}, config: any = {}): angular.IHttpPromise<any> {
+    let url = this.apiUrl + endpoint;
+    config.transformRequest = ConnectorService.transformRequest;
+    return this.$http.post(url, data, config)
+      .then((response: any) => {
+        return config.autoParse ?
+          ConnectorService.parseResponse(response) :
+          response;
+      });
+  };
 
 
 }
