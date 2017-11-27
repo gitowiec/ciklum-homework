@@ -1,0 +1,17 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
+
+//@import "~bootstrap-sass/assets/stylesheets/bootstrap/tables";
+
+/*
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import "bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+*/
+
+
+.country-list {
+  @extend .table-striped;
+}
+
+.country-details {
+  @extend .table-bordered;
+}

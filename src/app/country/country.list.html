@@ -1,0 +1,15 @@
+<h2>Country list</h2>
+<table class="table country-list">
+  <thead>
+  <th>Name</th>
+  <th>Capital</th>
+  <th>Region</th>
+  </thead>
+  <tbody>
+  <tr ng-repeat="(key, countryItem) in list.countryList">
+    <td><a class="" ui-sref="details({alpha3Code:countryItem.alpha3Code})">{{countryItem.name}}</a></td>
+    <td>{{countryItem.capital}}</td>
+    <td>{{countryItem.region}}</td>
+  </tr>
+  </tbody>
+</table>
